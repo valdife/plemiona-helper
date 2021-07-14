@@ -1,35 +1,35 @@
-class Wioska:
-    def __init__(self, koordy, piki, miecze, ck):
-        self.koordy = koordy
-        self.piki = piki
-        self.miecze = miecze
-        self.ck = ck
+class Village:
+    def __init__(self, coords, pike, swords, heavycav):
+        self.coords = coords
+        self.pike = pike
+        self.swords = swords
+        self.heavycav = heavycav
 
-    def countPikiMiecze(self):
-        if self.piki != "?" and self.miecze != "?":
-            return int(self.piki) + int(self.miecze)
+    def countPikesSwords(self):
+        if self.pike != "?" or self.swords != "?":
+            return int(self.pike) + int(self.swords)
         else:
             return '?'
 
     def __str__(self):
-        return self.koordy + ": Piki: " + self.piki + ", Miecze: " + self.miecze + ", CK: " + self.ck
+        return self.coords + ": Pikemans: " + self.pike + ", Swordsmans: " + self.swords + ", Heavy Cavalary: " + self.heavycav
 
 
-tab = open("wioski.txt", 'r').read().split('\n')
-wioskiTab = []
+file = open("villages.txt", 'r').read().split('\n')
+villagesTab = []
 
-for string in tab:
-    xy = string.split(",")
-    if xy[1] == "w wiosce":
+for line in file:
+    possibleVillage = string.split(",")
+    if possibleVillage[1] == "w wiosce":
         try:
-            wioskiTab.append(Wioska(xy[0], xy[2], xy[3], xy[7]))
+            villagesTab.append(Village(possibleVillage[0], possibleVillage[2], possibleVillage[3], possibleVillage[7]))
         except:
-            print("Prawdopodobnie problem z formatem pliku")
+            print("Check the file format")
 
-for wioska in wioskiTab:
-    ilePaczek = wioska.countPikiMiecze()
+for village in villagesTab:
+    supportNumb = village.countPikesSwords()
     try:
-        ilePaczek //= 200
+        supportNumb //= 200
     except:
-        ilePaczek = '?'
-    print("\nWioska: " + str(wioska) + "\n" + "Paczek do wysłania: " + str(ilePaczek))
+        supportNumb = '?'
+    print("\nVillage: " + str(village) + "\n" + "Support packages to send: " + str(supportNumb))
